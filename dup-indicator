@@ -1,0 +1,30 @@
+Sub Dup_indicator(Optional ByVal control As IRibbonControl)
+
+Application.ScreenUpdating = False
+
+'Declaring variables
+Dim cell As Variant
+Dim Source As Range
+
+'Initializing source range
+Set Source = Range("A1:A10000")
+
+'Removing any previous formatting from the source
+'Source.Interior.Color = RGB(221, 235, 247)
+
+'Looping through each cell in the source range
+For Each cell In Source
+    
+    'Checking whether value in cell already exist in the source range
+    If Application.WorksheetFunction.CountIf(Source, cell) > 1 Then
+        
+        'Highlighting duplicate values in red color
+        cell.Interior.Color = RGB(255, 0, 0)
+        cell.Offset(0, 1).Value = "CHECK_" & cell.Offset(0, 0).Value
+        
+    End If
+Next
+
+Application.ScreenUpdating = True
+
+End Sub
