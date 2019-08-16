@@ -1,0 +1,29 @@
+Sub Colorize()
+
+Application.ScreenUpdating = False
+
+substr = Range("D14").Value   'The word you want to use
+    
+'Turn everything bold
+Range("A3:F8").Font.Bold = True
+'Turns half of it green
+Range("A3:C8").Font.ColorIndex = 10
+'The other half blue
+Range("D3:F8").Font.ColorIndex = 5
+    
+'Each time it finds the substr it will take off the formatting
+For Each myString In myRange
+    lenstr = Len(myString)
+    lensubstr = Len(substr)
+    For i = 1 To lenstr
+        tempString = Mid(myString, i, lensubstr)
+        If tempString = substr Then
+            myString.Characters(Start:=i, Length:=lensubstr).Font.ColorIndex = 1
+            myString.Characters(Start:=i, Length:=lensubstr).Font.Bold = False
+        End If
+    Next i
+Next myString
+
+Application.ScreenUpdating = True
+
+End Sub
